@@ -1,31 +1,30 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
 
-app.get('/',(req,res)=>{res.send('Server is running. Nodemon test.')});
+app.use(bodyParser.json())
 
 const mockUserData=[
-    {name:'Jack'},
-    {name:'Jill'}
-];
+	{name:'Mark'},
+	{name:'Jill'}
+]
 
-app.get('/users', function(req,res){
-    res.json({
-        success: true,
-        message: 'successfully got users. Nice!',
-        user: mockUserData
-    })
-});
-
-app.get('/users/:id', function(req,res){
-    console.log(req.params.id)
-    res.json({
-        success: true,
-        message: 'Got one user!',
-        user: req.params.id
-    })
-});
+app.get('/users',function(req,res){
+	res.json({
+		success: true,
+		message: 'successfully got users. Nice!',
+		users: mockUserData
+	})
+})
+// colons are used as variables that be viewed in the params
+app.get('/users/:id',function(req,res){
+	console.log(req.params.id)
+	res.json({
+		success: true,
+		message: 'got one user',
+		user: req.params.id
+	})
+})
 
 app.post('/login',function(req,res){
 	// Typically passwords are encrypted using something like bcrypt before sending to database
@@ -49,6 +48,7 @@ app.post('/login',function(req,res){
 			message: 'password and username do not match'
 		})
 	}
+
 })
 
-app.listen(8000,function(){console.log('Server is running')});
+app.listen(8000,function(){console.log('server is listening')})
